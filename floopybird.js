@@ -14,15 +14,15 @@ var gameState = false;// this will tell theu game weather or not to be on or off
 var presses = 0;
 const keys = document.querySelector('.buttons')
 var needed = [];
-// @function exeptionsRand();
-// @param inOrOut [string] {Expects} ["in","out"]: Tells the function weather or not to use out or in for the ifs
+
+
 // @param max [integer] {requires} [max > min] : tells the function when to stop;
 // @param min [integer] {requires} [min < max] : tells the function when to start;
-function exeptionsRand(intOrOut,max,min) {
+function exeptionsRand(intOrOut,max,min) {// function exeptionsRand();
     var inBool = true;
   while (inBool == true) {
   var randNumber = Math.floor(Math.random()*(max-min))+min;
-  if (intOrOut == "in") {
+  if (intOrOut == "in") {// @param inOrOut [string] {Expects} ["in","out"]: Tells the function weather or not to use out or in for the ifs
     if (max >= randNumber && randNumber >= min) {
         inBool = false;
     }else{
