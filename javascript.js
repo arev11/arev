@@ -1,14 +1,4 @@
-/*--------------- Preset output before we edit anything start ----------------*/
 
-
-  var output = "JavaScript Loading";
-document.getElementById("feedback").innerHTML = output;
-
-
-//innerHTML= everything between the \\<tags></tags>
-/*------------ preset output before we edit end. Should read "JavaSctxript Loading"
-if this does not show up, and your expectxted result does not happen, then you
-have an issue bellow. --------------------------------------------------------*/
 
 
 var c = document.getElementById("myCanvas");
@@ -354,20 +344,8 @@ needed = [];
 
 
 
-/*----------------------------------------- Do not make ctxhanges below this line
-Output ctxommand for any ctxhanges above. If there are no ctxhanges above then it
-will read "JavaSctxript Loading". If there is a ctxhange above, then it will output
-that ctxhange, if there is an error it will output "JavaSctxript file not loading".
-------------------------------------------------------------------------------*/
-var styledOutput = "";
 
-if (Array.isArray(output)) {
-  for (var i = 0; i < output.length; i++) { styledOutput += output[i] + "<BR>";}
-}
 
-if (styledOutput.length != 0) { output = styledOutput; }
-
-doctxument.getElementById("feedback").innerHTML = output;
 
 
 
