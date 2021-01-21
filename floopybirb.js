@@ -16,12 +16,12 @@ function exeptionsRand(intOrOut,max,min) {//this function allows you to go betwe
   while (inBool == true) {
   var randNumber = Math.floor(Math.random()*(max-min))+min;
   if (intOrOut == "in") {
-    if (max >= randNumber && randNumber >= min) {
+    if (max >= randNumber && randNumber >= min) {//max to min
         inBool = false;
     } else {
     randNumber = Math.floor(Math.random()*(max-min)) + min;
     }
-  } else if (intOrOut == "out") {
+  } else if (intOrOut == "out") {//in or out
     if (min >= randNumber <= max) {
         inBool = false;
     } else {
