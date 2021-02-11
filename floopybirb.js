@@ -150,7 +150,7 @@ setInterval(draw, 10); //Makes sure that the draw function loops.
 document.addEventListener("keydown", makeBounce); //Looks for when a key is pressed.
 function makeBounce(e) { //This function will make the ball jump.
   if (e.key == " ") { //When the spacebar is pressed (the empty string being the spacebar).
-    ball.yMove -= 5; //The ball will be tossed up a short distance.
+    ball.yMove -= 5; //The ball will be tossed up a short distance of 5 units.
   }
   if (e.key == "r") {
     ball.xMove = -ball.xMove;
@@ -158,5 +158,5 @@ function makeBounce(e) { //This function will make the ball jump.
 }
 
 
-} //Don't mess with these, these are for the start menu function at the top.
+} //these are for the start menu function at the top.
 });
