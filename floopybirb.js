@@ -1,15 +1,16 @@
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
-var ball = {xPos: c.width/20, yPos: c.height/20, xMove: 5, yMove: 5, rad: 20}; //The ball is now a class object. The params setting the balls position and radius.
-var gravity = 0.2; //Sets gravity-the rate at which the ball falls down.
-var damping = 0.75; //This will make the ball slow down when it hits a wall.
-var rectWidth = Math.floor(Math.random() * (125 - 100) + 100);//rectangle set width
-var rectHeight = Math.floor(Math.random() * (190 - 170) + 170); //rectangle set height
+var ball = {xPos: c.width/20, yPos: c.height/20, xMove: 5, yMove: 5, rad: 20}; //Creates the ball object, and it's parameters will be used later for collision.
+var gravity = 0.2; //Adds a 'weight' to the ball, giving it a form of gravity.
+var damping = 0.75; //When the ball hits a wall, it will slow down by this amount.
+var rectWidth = Math.floor(Math.random() * (125 - 100) + 100); //Randomly generates a number which will determine the width of the pipes.
+var rectHeight = Math.floor(Math.random() * (190 - 170) + 170); //Randomly generates a number which will determine the height of the pipes.
 var rectLower = {xPos: c.width-rectWidth, yPos: c.height-rectHeight, width: rectWidth, height: rectHeight};
-var rectUpper = {xPos: c.width-rectWidth, yPos: 0, width: rectWidth, height: rectHeight};// determine the outsides of the rectangles all 4 sides are set.
-var rectArray = []; // array is considered a placeholder.
-var timer = 0; // be used to time the spawns of the pipes.
+var rectUpper = {xPos: c.width-rectWidth, yPos: 0, width: rectWidth, height: rectHeight};
+var rectArray = []; //Will bbe used later to draw our pipes.
+var timer = 0; //Will be used later to spawn the pipes at a specific time.
+var score = 0; //Will increment every time you go through a pipe.
 var diffTimer = 0; //Will be used to determine the difficulty of the game. At a specific time, pipes will be drawn more frequently.
 
 window.addEventListener("keydown", ev => { //Looks for a keypress, and also looks for a specific keycode
@@ -30,14 +31,14 @@ function drawCircle() { //This function will draw the cricle based on the ball o
 }
 
 /* makePipe(lowRectX, lowRectY, lowRectWid, lowRectHeight, upRectX, upRectY, upRectWid, upRectHeight)
-@param lowRectX [object]- sets x position of the long, (bottom tube).
-@param lowRectY [object]- sets y position of the long, (bottom tube).
-@param lowRectWid [object]- determines the width of the long, (bottom tube).
-@param lowRectHeight [object]- determines the height of the long, (bottom tube).
-@param upRectX [object]- sets x position of the long, (top tube.
-@param upRectY [object]- sets y position of the long, (top tube).
-@param upRectWid [object]- determines the width of the long, (top tube).
-@param upRectHeight [object]- determines the height of the long, (top tube).
+@param lowRectX {obj}- x position of the long, bottom tube
+@param lowRectY {obj}- y position of the long, bottom tube
+@param lowRectWid {obj}- the width of the long, bottom tube
+@param lowRectHeight {obj}- the height of the long, bottom tube
+@param upRectX {obj}- x position of the long, top tube
+@param upRectY {obj}- y position of the long, top tube
+@param upRectWid {obj}- the width of the long, top tube
+@param upRectHeight {obj}- the height of the long, top tube
 */
 function makePipe(lowRectX, lowRectY, lowRectWid, lowRectHeight, upRectX, upRectY, upRectWid, upRectHeight){ //This function will draw pipes every frame.
   ctx.clearRect(0, 0, c.width, c.height); //Will clear the canvas every frame.
@@ -48,7 +49,7 @@ function makePipe(lowRectX, lowRectY, lowRectWid, lowRectHeight, upRectX, upRect
     ctx.fill(); //Actually colors the pipe.
     ctx.stroke(); //Draws everything else.
     ctx.beginPath();
-    ctx.rect(rectArray[i].xPosL-15, rectArray[i].yPosL, rectArray[i].widthL+30, 40);//Will draw the top of the top pipe.
+    ctx.rect(rectArray[i].xPosL-15, rectArray[i].yPosL, rectArray[i].widthL+30, 40);
     ctx.fillStyle = "green";
     ctx.fill();
     ctx.stroke();
@@ -66,19 +67,19 @@ function makePipe(lowRectX, lowRectY, lowRectWid, lowRectHeight, upRectX, upRect
 }
 
 /* collisionCheck(lowRectX, lowRectY, lowRectWid, lowRectHeight, upRectX, upRectY, upRectWid, upRectHeight)
-@param lowRectX [object]- sets x position of the long, (bottom tube).
-@param lowRectY [object]- sets y position of the long, (bottom tube).
-@param lowRectWid [object]- determines the width of the long, (bottom tube).
-@param lowRectHeight [object]- determines the height of the long, (bottom tube).
-@param upRectX [object]- sets x position of the long, (top tube.
-@param upRectY [object]- sets y position of the long, (top tube).
-@param upRectWid [object]- determines the width of the long, (top tube).
-@param upRectHeight [object]- determines the height of the long, (top tube).
+@param lowRectX {obj}- x position of the long, bottom tube
+@param lowRectY {obj}- y position of the long, bottom tube
+@param lowRectWid {obj}- the width of the long, bottom tube
+@param lowRectHeight {obj}- the height of the long, bottom tube
+@param upRectX {obj}- x position of the long, top tube
+@param upRectY {obj}- y position of the long, top tube
+@param upRectWid {obj}- the width of the long, top tube
+@param upRectHeight {obj}- the height of the long, top tube
 */
 function collisionCheck(lowRectX, lowRectY, lowRectWid, lowRectHeight, upRectX, upRectY, upRectWid, upRectHeight){ //This function will check to see if the ball hits a pipe.
   if ((ball.xPos + ball.xMove + ball.rad > lowRectX) && (ball.xPos + ball.xMove + ball.rad < lowRectX + 2)) { //When the ball enters the gap between two pipes.
     score ++; //The score will go up by one.
-    console.log(score);//inputs score to the console
+    console.log(score);
     document.getElementById('score').innerHTML = "Score = " + score;
   }
   if ((ball.xPos + ball.xMove + ball.rad > upRectX) && (ball.yPos + ball.rad < upRectHeight) && (ball.rad + ball.xPos < upRectX + upRectWid)) { //If the ball enters a specific range of coordinates (in this case, the upper pipe), the game will end.
@@ -91,14 +92,14 @@ function collisionCheck(lowRectX, lowRectY, lowRectWid, lowRectHeight, upRectX, 
     alert("GAME OVER! Score: " + score);
   }
   if ((ball.yPos + ball.yMove + ball.rad > lowRectY) && (ball.xPos + ball.rad < lowRectWid + lowRectX + 50) && (ball.rad + ball.xPos > lowRectX)) {
-    alert("GAME OVER! Score: " + score);//continues to alert and repeats
+    alert("GAME OVER! Score: " + score);
   }
 }
 
 function draw() { //This function will actually draw the ball and the pipe. It will also give the ball it's 'physics'.
   ctx.clearRect(0, 0, myCanvas.width, myCanvas.height); //Clears the canvas every frame.
   makePipe(rectLower.xPos, rectLower.yPos, rectLower.width, rectLower.height, rectUpper.xPos, rectUpper.yPos, rectUpper.width, rectUpper.height); //Actually draws the pipes.
-  if (timer == 300) {//When you start the game, a timer will count to 300.
+  if (timer == 300) {
     var chance = Math.floor(Math.random() * (1 - 4) + 4); //Will generate a random number between 1 and 3
     if (chance == 1) { //If the number is 1
       var rectHUp = Math.floor(Math.random() * (190 - 150) + 150); //The pipe's gap will change location.
@@ -130,7 +131,7 @@ function draw() { //This function will actually draw the ball and the pipe. It w
     ball.yMove = -ball.yMove * damping; //The ball will bounce in the opposite direction and lose some speed.
   }
   ball.yMove += gravity; //This will give the ball it's artificial gravity.
-  ball.xPos = 250;//direction of x velocity.
+  ball.xPos = 250;
   if (((ball.yPos + ball.yMove) + ball.rad) <= c.height) {
     ball.yPos += ball.yMove;
   }
@@ -157,5 +158,5 @@ function makeBounce(e) { //This function will make the ball jump.
 }
 
 
-} //these are for the start menu function at the top.
+} //Don't mess with these, these are for the start menu function at the top.
 });
