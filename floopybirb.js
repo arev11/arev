@@ -1,9 +1,9 @@
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
-var ball = {xPos: c.width/20, yPos: c.height/20, xMove: 5, yMove: 5, rad: 20}; //Creates the ball object, and it's parameters will be used later for collision.
-var gravity = 0.2; //Adds a 'weight' to the ball, giving it a form of gravity.
-var damping = 0.75; //When the ball hits a wall, it will slow down by this amount.
+var ball = {xPos: c.width/20, yPos: c.height/20, xMove: 5, yMove: 5, rad: 20}; //Creates  ball object, and these parameters will be used later for collision.
+var gravity = 0.2; //Adds a form of gravity.
+var damping = 0.75; //When the ball hits a wall, it will slow down by 0.75.
 var rectWidth = Math.floor(Math.random() * (125 - 100) + 100); //Randomly generates a number which will determine the width of the pipes.
 var rectHeight = Math.floor(Math.random() * (190 - 170) + 170); //Randomly generates a number which will determine the height of the pipes.
 var rectLower = {xPos: c.width-rectWidth, yPos: c.height-rectHeight, width: rectWidth, height: rectHeight};
@@ -43,8 +43,8 @@ function drawCircle() { //This function will draw the cricle based on the ball o
 function makePipe(lowRectX, lowRectY, lowRectWid, lowRectHeight, upRectX, upRectY, upRectWid, upRectHeight){ //This function will draw pipes every frame.
   ctx.clearRect(0, 0, c.width, c.height); //Will clear the canvas every frame.
   for (var i = 0; i < rectArray.length; i++) {
-    ctx.beginPath(); //Starts to draw
-    ctx.rect(rectArray[i].xPosL, rectArray[i].yPosL, rectArray[i].widthL, rectArray[i].heightL); //Draws a rectangle based on params above.
+    ctx.beginPath(); //Starts to draw pipes
+    ctx.rect(rectArray[i].xPosL, rectArray[i].yPosL, rectArray[i].widthL, rectArray[i].heightL); //Draws a rectangle based on the params above.
     ctx.fillStyle = "green"; //Will color the pipe green.
     ctx.fill(); //Actually colors the pipe.
     ctx.stroke(); //Draws everything else.
