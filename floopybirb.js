@@ -1,16 +1,16 @@
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
-var ball = {xPos: c.width/20, yPos: c.height/20, xMove: 5, yMove: 5, rad: 20}; //Creates  ball object, and these parameters will be used later for collision.
+var ball = {xPos: c.width/20, yPos: c.height/20, xMove: 5, yMove: 5, rad: 20}; //Creates ball object, and these parameters will be used later for collision.
 var gravity = 0.2; //Adds a form of gravity.
 var damping = 0.75; //When the ball hits a wall, it will slow down by 0.75.
 var rectWidth = Math.floor(Math.random() * (125 - 100) + 100); //Randomly generates a number which will determine the width of the pipes.
 var rectHeight = Math.floor(Math.random() * (190 - 170) + 170); //Randomly generates a number which will determine the height of the pipes.
-var rectLower = {xPos: c.width-rectWidth, yPos: c.height-rectHeight, width: rectWidth, height: rectHeight};
-var rectUpper = {xPos: c.width-rectWidth, yPos: 0, width: rectWidth, height: rectHeight};
-var rectArray = []; //Will bbe used later to draw our pipes.
-var timer = 0; //Will be used later to spawn the pipes at a specific time.
-var score = 0; //Will increment every time you go through a pipe.
+var rectLower = {xPos: c.width-rectWidth, yPos: c.height-rectHeight, width: rectWidth, height: rectHeight};//rect lower based on these params
+var rectUpper = {xPos: c.width-rectWidth, yPos: 0, width: rectWidth, height: rectHeight};//rectupper based on these params 
+var rectArray = []; //rectarray draws pipes.
+var timer = 0; //timer is used later to spawn the pipes at a specific time.
+var score = 0; //Will increment every time you go through a pipe.Increase score 
 var diffTimer = 0; //Will be used to determine the difficulty of the game. At a specific time, pipes will be drawn more frequently.
 
 window.addEventListener("keydown", ev => { //Looks for a keypress, and also looks for a specific keycode
@@ -22,7 +22,7 @@ var birb = new Image(); //makes bird image
 birb.src = "birb(1).png"; //gets bird image
 birb.width = 10;  //bird picture width
 birb.height = 10;  //bird picture height
-ctx.drawImage(birb, 150, 150, 10, 10); //draw bird onto canvas
+ctx.drawImage(birb, 150, 150, 10, 10); //draws the bird onto canvas
 
 function drawCircle() { //This function will draw the cricle based on the ball object params above.
   ctx.beginPath();
@@ -141,7 +141,7 @@ function draw() { //This function will actually draw the ball and the pipe. It w
   timer ++; //The timer will go up by one every time the draw function loops.
   diffTimer++; //diffTimer will increment to activate hardmode.
   if (diffTimer == 10000) { //If the diffTimer is at 10000...
-    setInterval(draw, 9); //The game will speed up dramatically.
+    setInterval(draw, 9); //The game will speed up dramatically.Increasing the games difficulty
   }
 }
 
